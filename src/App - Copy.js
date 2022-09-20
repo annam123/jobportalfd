@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
+import React, { Component, useContext, useEffect, useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login1 from "./components/Login1";
 import Regster from './components/Register';
 import Dashboard from './components/Dahboard';
@@ -16,10 +15,6 @@ import './assets/css/responsive.css';
 
 
 function App() {
-  const userName = localStorage.getItem('user');
-  let profile = '';
-  let register = 'block';
-  if(userName) { profile = 'block'; register = ''; }
   console.log('11111;;;;');
   const [showModal, setShow] = useState(false);
   console.log('22222;;;;');
@@ -37,12 +32,6 @@ function App() {
   }, []);
 
   const [message, setMessage] = useState("");
-
-  const handleLogout = () => {
-    localStorage.removeItem("access_token");
-    localStorage.removeItem("user");
-    window.location.href = "/";
-  };
 
   return (
     <div className="App" title={message}>
@@ -143,30 +132,28 @@ function App() {
                   </div>
                 </nav>
               </aside>
-              <aside className="col-md-4">
+              <Router><aside className="col-md-4">
                 <div className="careerfy-right">
                   <ul className="careerfy-user-section">
-                  <li>
-                    <button className="careerfy-color careerfy-open-signin-tab" style={{ background: "none", display: register ? "block" : "none" }} onClick={handleShow}>Register</button>
-                    <label className="careerfy-color careerfy-open-signin-tab" style={{ display: profile ? "block" : "none" }}>{userName}</label>
-                  </li>
-                  <li>
-                    <a style={{ display: register ? "block" : "none" }} className="careerfy-color careerfy-open-signup-tab" href="/#">Sign In</a>
-                    <button className="careerfy-color careerfy-open-signin-tab" style={{ background: "none", display: profile ? "block" : "none" }} onClick={handleLogout}>Sign Out</button>
-                  </li>
+                    <li>
+                      <Routes>
+                        <Route path="/login" element={<Login1 />} />
+                        <Route path="/Regster" element={<Regster />} />
+                      </Routes>
+                    </li>
                   </ul>
                   <a href="/#" className="careerfy-simple-btn careerfy-bgcolor"><span> <i className="careerfy-icon fa fa-upload"></i> Post Job</span></a>
                 </div>
-              </aside>
+              </aside></Router>
               <div className="d-flex align-items-center justify-content-center">
 
               </div>
-                            <Modal show={showModal} onHide={handleClose}>
+              {/*               <Modal show={showModal} onHide={handleClose}>
                 <Modal.Header closeButton>
                   <Modal.Title>Modal heading</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                 <Regster />
+                 <Register />
                 </Modal.Body>
                 <Modal.Footer>
                   <Button variant="secondary" onClick={handleClose}>
@@ -177,7 +164,7 @@ function App() {
                   </Button>
                 </Modal.Footer>
               </Modal>
-
+ */}
             </div>
           </div>
         </header>

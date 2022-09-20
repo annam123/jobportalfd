@@ -17,9 +17,9 @@ import './assets/css/responsive.css';
 
 function App() {
   const userName = localStorage.getItem('user');
-  let profile = '';
-  let register = 'block';
-  if(userName) { profile = 'block'; register = ''; }
+  let profile = 'Sign in';
+  let register = 'Register';
+  if(userName) { profile = 'Sign Out'; register = userName; }
   console.log('11111;;;;');
   const [showModal, setShow] = useState(false);
   console.log('22222;;;;');
@@ -146,14 +146,8 @@ function App() {
               <aside className="col-md-4">
                 <div className="careerfy-right">
                   <ul className="careerfy-user-section">
-                  <li>
-                    <button className="careerfy-color careerfy-open-signin-tab" style={{ background: "none", display: register ? "block" : "none" }} onClick={handleShow}>Register</button>
-                    <label className="careerfy-color careerfy-open-signin-tab" style={{ display: profile ? "block" : "none" }}>{userName}</label>
-                  </li>
-                  <li>
-                    <a style={{ display: register ? "block" : "none" }} className="careerfy-color careerfy-open-signup-tab" href="/#">Sign In</a>
-                    <button className="careerfy-color careerfy-open-signin-tab" style={{ background: "none", display: profile ? "block" : "none" }} onClick={handleLogout}>Sign Out</button>
-                  </li>
+                  <li><button className="careerfy-color careerfy-open-signin-tab" style={{ background: "none" }} onClick={handleShow}>{register}</button></li>
+                    <li><a className="careerfy-color careerfy-open-signup-tab" href="/#" onClick={handleLogout}>{profile}</a></li>
                   </ul>
                   <a href="/#" className="careerfy-simple-btn careerfy-bgcolor"><span> <i className="careerfy-icon fa fa-upload"></i> Post Job</span></a>
                 </div>
