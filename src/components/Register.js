@@ -1,6 +1,5 @@
 //import { Navigate } from "react-router-dom";
 import React, { useState } from 'react'
-import Dashboard from "./Dahboard";
 import axios from 'axios';
 function Regster(props) {
   const [data, setdata] = useState({ Username: '', Email: '', Mobile: '', Usertype: '', Password: '' })

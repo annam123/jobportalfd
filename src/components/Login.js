@@ -1,33 +1,50 @@
 import React, { useState } from 'react'   
 import axios from 'axios';  
-function Login1(props) { 
+function Login(props) { 
   console.log('login11111.....');  
-    const [employee, setemployee] = useState({ Email: '', Password: ''});  
-    const apiUrl = "http://localhost:8000/api/users/me";    
+    const [employee, setemployee] = useState({ Username: '', Password: ''});  
+    const apiUrl = "http://localhost:8000/api/token";    
     const Login = (e) => {    
             e.preventDefault();    
-            debugger;   
-            const data = { Email:employee.Email, Password: employee.Password };    
+//            debugger;   
+            //const data = 'grant_type=&username=admin123%40gmail.com&password=admin123&scope=&client_id=&client_secret=';
+            const data = 'username='+employee.Email+'&password='+employee.Password;
+            console.log("-----",data);
+            console.log("aaaaaaaaaa",employee.Email); 
+            console.log("aaaaaaaaaa",employee.Password);
             axios.post(apiUrl, data)    
             .then((result) => {    
-                debugger; 
+  //              debugger; 
                 console.log('login.....'); 
                 console.log(result.data);   
-                const serializedState = JSON.stringify(result.data.UserDetails);  
-               var a= localStorage.setItem('myData', serializedState);   
-                console.log("A:",a)  
+                if ('access_token' in result.data) {
+                  //alert('Invalid User');
+                  console.log('set access_token;;;;');
+                  const userName = 'Anu';
+                  localStorage.setItem('access_token', result.data.access_token);
+                  localStorage.setItem('user', userName);
+                  alert("Login successfully");
+                  window.location.href = "/Dashboard";
+                } else {
+                  //navigate('/Login1', { replace: true })
+                  console.log('eleeee;;;;');
+                }
+                //retur
+                //const serializedState = JSON.stringify(result.data.UserDetails);  
+              // var a= localStorage.setItem('myData', serializedState);   
+                //console.log("A:",a)  
                 //const user =result.data.UserDetails;  
-                console.log(result.data.message);  
-                if (result.data.status === '200')    
+                //console.log(result.data.message);  
+                /* if (result.data.status === '200')    
                     props.history.push('/Dashboard')    
                 else    
-                alert('Invalid User');    
+                alert('Invalid User');  */   
             })        
           };    
           
           const onChange = (e) => {    
                 e.persist();    
-                debugger;    
+    //            debugger;    
                 setemployee({...employee, [e.target.name]: e.target.value});    
               }    
     return (  
@@ -72,4 +89,4 @@ function Login1(props) {
     )  
 }  
   
-export default Login1  
+export default Login  

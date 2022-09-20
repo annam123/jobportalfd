@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import Login1 from "./components/Login1";
+import Login from "./components/Login";
 import Regster from './components/Register';
 import Dashboard from './components/Dahboard';
 import './assets/css/bootstrap.css';
@@ -22,9 +22,13 @@ function App() {
   if(userName) { profile = 'block'; register = ''; }
   console.log('11111;;;;');
   const [showModal, setShow] = useState(false);
+  const [showModalLogin, setShowLogin] = useState(false);
+  
   console.log('22222;;;;');
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handleCloseLogin = () => setShowLogin(false);
+  const handleShowLogin = () => setShowLogin(true);
   const [user, setuser] = useState({ Email: '', Password: '' });
   useEffect(() => {
     var a = localStorage.getItem('myData');
@@ -151,7 +155,7 @@ function App() {
                     <label className="careerfy-color careerfy-open-signin-tab" style={{ display: profile ? "block" : "none" }}>{userName}</label>
                   </li>
                   <li>
-                    <a style={{ display: register ? "block" : "none" }} className="careerfy-color careerfy-open-signup-tab" href="/#">Sign In</a>
+                    <a style={{ display: register ? "block" : "none" }} className="careerfy-color careerfy-open-signup-tab" href="/#" onClick={handleShowLogin}>Sign In</a>
                     <button className="careerfy-color careerfy-open-signin-tab" style={{ background: "none", display: profile ? "block" : "none" }} onClick={handleLogout}>Sign Out</button>
                   </li>
                   </ul>
@@ -161,7 +165,7 @@ function App() {
               <div className="d-flex align-items-center justify-content-center">
 
               </div>
-                            <Modal show={showModal} onHide={handleClose}>
+              <Modal show={showModal} onHide={handleClose}>
                 <Modal.Header closeButton>
                   <Modal.Title>Modal heading</Modal.Title>
                 </Modal.Header>
@@ -173,6 +177,25 @@ function App() {
                     Close
                   </Button>
                   <Button variant="primary" onClick={handleClose}>
+                    Save Changes
+                  </Button>
+                </Modal.Footer>
+              </Modal>
+
+              {/* login */}
+
+              <Modal show={showModalLogin} onHide={handleCloseLogin}>
+                <Modal.Header closeButton>
+                  <Modal.Title>Modal heading</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                 <Login />
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button variant="secondary" onClick={handleCloseLogin}>
+                    Close
+                  </Button>
+                  <Button variant="primary" onClick={handleCloseLogin}>
                     Save Changes
                   </Button>
                 </Modal.Footer>
